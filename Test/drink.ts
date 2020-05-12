@@ -86,3 +86,33 @@ class Coffee extends Drink {
         return this.coffeeType
     }
 }
+
+class DrinkShop {
+    order(drink: string, sugarType: SugarType, iceType: IceType): Tea | Coffee {
+        const drinkLowerCase = drink.toLowerCase()
+        switch (drinkLowerCase) {
+            case 'coffee':
+                return new Coffee(sugarType, iceType)
+            case 'tea':
+                return new Tea(sugarType, iceType)
+            default:
+                return null;
+        }
+    }
+}
+
+class Client {
+    test():void {
+        const drinkShop: DrinkShop = new DrinkShop()
+        const tea = drinkShop.order('tea', SugarType.Free, IceType.Free) as Tea
+        tea.setTeaType(TeaType.Oolong)
+        const coffee = drinkShop.order('coffee', SugarType.Free, IceType.Free) as Coffee
+        coffee.setCoffeeType(CoffeeType.Espresso)
+        console.log('tea' , tea)
+        console.log('coffee', coffee)
+
+    }
+}
+
+const cli = new Client()
+cli.test()
