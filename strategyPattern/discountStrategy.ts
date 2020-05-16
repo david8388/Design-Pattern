@@ -79,3 +79,33 @@ class Coffee extends Drink {
     }
     
 }
+
+class DrinkOrder {
+    drinks: Array<Drink>
+
+    addDrink(drink: Drink): void {
+        this.drinks.push(drink)
+    }
+
+    removeDrink(drink: Drink): void {
+        const index = this.drinks.indexOf(drink)
+        if (index > -1) {
+            this.drinks.splice(index, 1)
+        }
+    }
+
+    private totalPrice(): number {
+        let totalPrice: number = 0
+
+        for (const drink of this.drinks) {
+            totalPrice += drink.getValue()
+        }
+        return totalPrice
+    }
+
+    getTotalPrice(discountStrategy: DiscountStrategy): number {
+        const totalPrice : number = this.totalPrice()
+        return discountStrategy.getValue(totalPrice)
+    }
+
+}
