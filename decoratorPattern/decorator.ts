@@ -1,3 +1,75 @@
+class Order {
+    show(): void {
+
+    }
+}
+
+class Item extends Order {
+    protected order: Order
+
+    decorate(order: Order) {
+        this.order = order
+    }
+
+    show(): void {
+        if (this.order !== null) {
+            this.order.show()
+        }
+    }
+
+}
+
+class Drink extends Item {
+    addDrink(): void {
+        console.log('一份飲料')
+    }
+
+    show(): void {
+        super.show()    
+        this.addDrink()
+    }
+
+}
+
+
+class MainMeal extends Item {
+    addDrink(): void {
+        console.log('一份主餐')
+    }
+
+    show(): void {
+        super.show()
+        this.addDrink()
+    }
+
+}
+
+class Salad extends Item {
+    addSalad(): void {
+        console.log('一份沙拉');
+    }
+
+    show(): void {
+        super.show()
+        this.addSalad()
+    }
+
+}
+
+
+class Soup extends Item {
+    addSoup(): void {
+        console.log('一份湯品')
+    }
+
+    show(): void {
+        super.show()
+        this.addSoup()
+    }
+}
+
+
+// 下方耦合性太高
 class Restaurant {
     private minimumOrder(): void {
         console.log('一杯飲料')
