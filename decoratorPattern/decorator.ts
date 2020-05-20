@@ -68,6 +68,55 @@ class Soup extends Item {
     }
 }
 
+const order: Order = new Order()
+const drink: Drink = new Drink()
+const mainMeal: MainMeal = new MainMeal()
+const soup: Soup = new Soup()
+
+drink.decorate(order)
+mainMeal.decorate(drink)
+soup.decorate(mainMeal)
+
+soup.show()
+
+class Meal extends Order {
+    protected order: Order
+
+    decorate(order: Order) {
+        this.order = order
+    }
+
+    show(): void {
+        if (this.order) {
+            this.order.show()
+        }
+    }
+
+}
+
+class SimpleMeal extends Meal {
+    protected order : Order
+
+    private addMeal(): void {
+        const salad: Salad = new Salad()
+        const mainMeal: MainMeal = new MainMeal()
+        const drink: Drink = new Drink()
+        salad.decorate(order)
+        mainMeal.decorate(salad)
+        drink.decorate(mainMeal)
+        this.order = drink
+    }
+
+    show(): void {
+        this.addMeal()
+        super.show()
+    }
+
+}
+console.log('簡餐')
+
+const simpleMeal: SimpleMeal = new SimpleMeal()
+simpleMeal.show()
 
 // 下方耦合性太高
 class Restaurant {
