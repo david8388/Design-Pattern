@@ -28,7 +28,7 @@ class Capacity {
 
 class Keyboard {
     language: string;
-    constructor(language: string;) {
+    constructor(language: string) {
         this.language = language
     }
 }
@@ -111,3 +111,84 @@ abstract class MBPBuilder {
         return this.mbp
     }
 }
+
+class MBP_2018 extends MBPBuilder {
+
+    constructor() {
+        super()
+    }
+
+    build(): MBP {
+        return super.build()
+    }
+
+    buildCPU(processor: any): MBPBuilder {
+        this.mbp.setProcessor(processor)
+        return this
+    }
+
+    buildMemory(memory: any): MBPBuilder {
+        this.mbp.setMemory(memory)
+        return this
+    }
+
+    buildGraphics(graphics: any): MBPBuilder {
+        this.mbp.setGraphics(graphics)
+        return this
+    }
+
+    buildCapacity(capacity: any): MBPBuilder {
+        this.mbp.setCapacity(capacity)
+        return this
+    }
+    buildKeyboard(keyboard: any): MBPBuilder {
+        this.mbp.setKeyboard(keyboard)
+        return this
+    }
+    
+}
+
+class MBPSeller {
+
+    private mbpBuilder: MBPBuilder
+
+    constructor(mbpBuilder: MBPBuilder) {
+        this.mbpBuilder = mbpBuilder
+    }
+
+    lowSpec() {
+        return this.mbpBuilder
+            .buildCPU(new Processor('2.2GHz 6 核心第八代 Intel Core i7 處理器'))
+            .buildMemory(new Memory(16))
+            .buildGraphics(new Graphics('Radeon Pro 555X 配備 4GB GDDR5 記憶體'))
+            .buildCapacity(new Capacity(256))
+            .buildKeyboard(new Keyboard('中文鍵盤'))
+            .build()
+    }
+
+    highSpec() {
+        return this.mbpBuilder
+            .buildCPU(new Processor('2.6GHz 6 核心第八代 Intel Core i7 處理器'))
+            .buildMemory(new Memory(16))
+            .buildGraphics(new Graphics('Radeon Pro 560X 配備 4GB GDDR5 記憶體'))
+            .buildCapacity(new Capacity(512))
+            .buildKeyboard(new Keyboard('中文鍵盤'))
+            .build()
+    }
+
+}
+
+const mbp_2018: MBP_2018 = new MBP_2018()
+const mbpSeller: MBPSeller = new MBPSeller(mbp_2018)
+const myMBP: MBP = mbpSeller.lowSpec()
+
+const dreamMBP: MBP = 
+    mbp_2018
+    .buildCPU(new Processor('2.9GHz 6 核心第八代 Intel Core i9 處理器'))
+    .buildMemory(new Memory(32))
+    .buildGraphics(new Graphics('Radeon Pro 560X 配備 4GB GDDR5 記憶體'))
+    .buildCapacity(new Capacity(4096))
+    .buildKeyboard(new Keyboard('英文鍵盤'))
+    .build()
+    
+console.log(myMBP, dreamMBP)
